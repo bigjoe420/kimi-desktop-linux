@@ -1,5 +1,7 @@
 # Kimi Desktop for Linux
 
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/bigjoe420/kimi-desktop-linux?style=flat-square)](https://github.com/bigjoe420/kimi-desktop-linux/releases)
+
 A minimal, native desktop wrapper for [Kimi](https://kimi.moonshot.cn) built with [Tauri v2](https://tauri.app).
 
 ---
@@ -13,6 +15,8 @@ The official Kimi Linux package is broken on modern Ubuntu LTS releases. It link
 - Any distribution that no longer ships `libwebkit2gtk-4.0`
 
 This wrapper solves the problem by building on Tauri v2, which links against `libwebkit2gtk-4.1` — the actively maintained WebKitGTK branch. The result is a single native binary with a system webview, no bundled Chromium, and full desktop integration, installable on current distributions with no workarounds.
+
+![Kimi Desktop Linux running on Ubuntu](assets/screenshot.png)
 
 ---
 
