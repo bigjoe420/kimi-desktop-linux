@@ -1,0 +1,23 @@
+# Build
+target/
+gen/
+*.AppImage
+*.deb
+
+# Node
+node_modules/
+dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Internal
+HANDOFF.md

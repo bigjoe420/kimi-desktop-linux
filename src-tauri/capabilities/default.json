@@ -1,0 +1,11 @@
+{
+  "identifier": "default",
+  "description": "Default capabilities for the Kimi desktop wrapper",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "shell:allow-open",
+    "window-state:allow-restore-state",
+    "window-state:allow-save-window-state"
+  ]
+}
