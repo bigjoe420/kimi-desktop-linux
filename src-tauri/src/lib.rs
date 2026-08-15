@@ -186,5 +186,40 @@ const OAUTH_INTERCEPTOR_SCRIPT: &str = r#"
     }
 
     console.log('[kimi-desktop-linux] OAuth interceptor ready');
+
+    // --- Phone login UX helper ---
+    (function() {
+        function findCodeInput(container) {
+            var inputs = container.querySelectorAll('input[type="text"], input[type="number"], input[type="tel"], input:not([type])');
+            for (var i = 0; i < inputs.length; i++) {
+                var input = inputs[i];
+                var placeholder = (input.placeholder || '').toLowerCase();
+                var name = (input.name || '').toLowerCase();
+                var id = (input.id || '').toLowerCase();
+                if (placeholder.indexOf('verification') !== -1 || placeholder.indexOf('code') !== -1 ||
+                    name.indexOf('code') !== -1 || id.indexOf('code') !== -1) {
+                    return input;
+                }
+            }
+            return null;
+        }
+
+        document.addEventListener('click', function(e) {
+            var btn = e.target.closest('button, [role="button"]');
+            if (!btn) return;
+            var text = (btn.textContent || btn.innerText || '').trim().toLowerCase();
+            if (text !== 'send' && text !== '发送' && text !== '获取验证码') return;
+
+            var container = btn.closest('form, div, section') || document.body;
+            var codeInput = findCodeInput(container);
+            if (codeInput && !codeInput.value.trim()) {
+                codeInput.value = '0';
+                codeInput.dispatchEvent(new Event('input', { bubbles: true }));
+                codeInput.dispatchEvent(new Event('change', { bubbles: true }));
+                console.log('[kimi-desktop-linux] Auto-filled dummy code for Send button');
+            }
+        }, true);
+    })();
+})();
 })();
 "#;
