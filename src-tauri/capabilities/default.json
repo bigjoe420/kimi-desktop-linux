@@ -1,6 +1,10 @@
 {
   "identifier": "default",
   "description": "Default capabilities for the Kimi desktop wrapper",
+  "local": true,
+  "remote": {
+    "urls": ["https://kimi.moonshot.cn"]
+  },
   "windows": ["main"],
   "permissions": [
     "core:default",
