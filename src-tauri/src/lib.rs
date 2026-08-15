@@ -1,4 +1,13 @@
 use tauri::Manager;
+use tauri_plugin_shell::ShellExt;
+
+/// Open a URL in the system default browser.
+/// Called from the injected JS interceptor — uses Rust-side ShellExt
+/// which bypasses the JS-side ACL restrictions on remote origins.
+#[tauri::command]
+fn open_external(app: tauri::AppHandle, url: String) {
+    let _ = app.shell().open(&url, None);
+}
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -10,6 +19,7 @@ pub fn run() {
             }
         }))
         .plugin(tauri_plugin_window_state::Builder::default().build())
+        .invoke_handler(tauri::generate_handler![open_external])
         .setup(|app| {
             if let Some(window) = app.get_webview_window("main") {
                 let _ = window.eval(OAUTH_INTERCEPTOR_SCRIPT);
@@ -86,17 +96,17 @@ const OAUTH_INTERCEPTOR_SCRIPT: &str = r#"
             return;
         }
 
-        invoke('plugin:shell|open', { path: url })
+        invoke('open_external', { url: url })
             .then(function() {
-                console.log('[kimi-desktop-linux] Shell open succeeded');
+                console.log('[kimi-desktop-linux] open_external succeeded');
                 showToast('Opened in browser', 3000);
             })
             .catch(function(e) {
                 var err = (e && e.message) ? e.message : String(e);
-                console.error('[kimi-desktop-linux] Shell open failed:', err);
-                showToast('Shell open error: ' + err, 8000);
+                console.error('[kimi-desktop-linux] open_external failed:', err);
+                showToast('Error: ' + err, 8000);
 
-                // Fallback 1: original window.open (new WebView window, avoids loop)
+                // Fallback: original window.open (new WebView window, avoids loop)
                 setTimeout(function() {
                     console.log('[kimi-desktop-linux] Fallback: originalOpen');
                     originalOpen.call(window, url, '_blank');
@@ -188,6 +198,9 @@ const OAUTH_INTERCEPTOR_SCRIPT: &str = r#"
     console.log('[kimi-desktop-linux] OAuth interceptor ready');
 
     // --- Phone login UX helper ---
+    // Kimi's web app requires the verification code field to be non-empty
+    // before the Send button triggers SMS delivery. This helper auto-fills
+    // a dummy digit when Send is clicked on an empty field.
     (function() {
         function findCodeInput(container) {
             var inputs = container.querySelectorAll('input[type="text"], input[type="number"], input[type="tel"], input:not([type])');
@@ -220,6 +233,5 @@ const OAUTH_INTERCEPTOR_SCRIPT: &str = r#"
             }
         }, true);
     })();
-})();
 })();
 "#;
