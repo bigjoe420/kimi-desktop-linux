@@ -3,7 +3,7 @@
   "description": "Default capabilities for the Kimi desktop wrapper",
   "local": true,
   "remote": {
-    "urls": ["https://kimi.moonshot.cn"]
+    "urls": ["https://kimi.ai", "https://kimi.moonshot.cn"]
   },
   "windows": ["main"],
   "permissions": [

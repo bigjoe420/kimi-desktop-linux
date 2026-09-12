@@ -2,7 +2,7 @@
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/bigjoe420/kimi-desktop-linux?style=flat-square)](https://github.com/bigjoe420/kimi-desktop-linux/releases)
 
-A minimal, native desktop wrapper for [Kimi](https://kimi.moonshot.cn) built with [Tauri v2](https://tauri.app).
+A minimal, native desktop wrapper for [Kimi](https://kimi.ai) built with [Tauri v2](https://tauri.app).
 
 ---
 
