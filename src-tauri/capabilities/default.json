@@ -3,12 +3,11 @@
   "description": "Default capabilities for the Kimi desktop wrapper",
   "local": true,
   "remote": {
-    "urls": ["https://kimi.ai", "https://kimi.moonshot.cn"]
+    "urls": ["https://kimi.ai", "https://www.kimi.ai", "https://kimi.moonshot.cn"]
   },
   "windows": ["main"],
   "permissions": [
     "core:default",
-    "allow-open-external",
     "shell:allow-open",
     "window-state:allow-restore-state",
     "window-state:allow-save-window-state"
