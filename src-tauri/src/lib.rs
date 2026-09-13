@@ -12,6 +12,10 @@ pub fn run() {
         .plugin(tauri_plugin_window_state::Builder::default().build())
         .setup(|app| {
             if let Some(window) = app.get_webview_window("main") {
+                #[cfg(debug_assertions)]
+                {
+                    let _ = window.open_devtools();
+                }
                 let _ = window.eval(OAUTH_INTERCEPTOR_SCRIPT);
             }
             Ok(())
