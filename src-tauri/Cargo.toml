@@ -1,6 +1,6 @@
 [package]
 name = "kimi-desktop-linux"
-version = "0.1.3"
+version = "0.1.4"
 description = "Native desktop wrapper for Kimi (Moonshot AI)"
 authors = ["Joe Kyser (Noad Laboratories)"]
 license = "MIT"
