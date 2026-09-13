@@ -1,0 +1,6 @@
+"$schema" = "../gen/schemas/desktop-schema.json"
+
+[[permission]]
+identifier = "allow-open-external"
+description = "Enables the open_external command used to open OAuth login URLs in the system browser."
+commands.allow = ["open_external"]
